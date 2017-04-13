@@ -7,21 +7,26 @@
 //     <div className="col-md-5">
 //       <VideoList videos={window.exampleVideoData}/>
 //     </div>
-//   </div>
+//   </div>asdfasdf
 // );
 
 class App extends React.Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
 
-    // this.state = {
-    //   done: 0
-    // }
+    this.state = {
+      done: 0
+    };
+
+    this.onVideoClick = this.onVideoClick.bind(this);
   }
 
-  onVideoClick() => {
-    this.setState({
-      done: !this.state.done
+  onVideoClick(index) {
+    // alert(index)
+    this.setState(function(){
+      return {
+        done: index
+      };
     });
   }
 
@@ -30,13 +35,13 @@ class App extends React.Component {
       <div>
         <Nav />
         <div className="col-md-7">
-          <VideoPlayer video={window.exampleVideoData[0]}/>
+          <VideoPlayer video={window.exampleVideoData[this.state.done]}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={window.exampleVideoData}/>
+          <VideoList videos={window.exampleVideoData} clicker={this.onVideoClick}/>
         </div>
       </div>  
-    )
+    );
   }
 }
 
