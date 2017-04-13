@@ -15,30 +15,58 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      done: 0
+      idx: 0,
+      text: '',
+      videos: window.exampleVideoData
     };
 
+    this.handleClick = this.handleClick.bind(this);
     this.onVideoClick = this.onVideoClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   onVideoClick(index) {
     // alert(index)
     this.setState(function(){
       return {
-        done: index
+        idx: index
       };
     });
+  }
+
+  handleChange(event) {
+    this.setState({ text: event.currentTarget.value })
+    searchYouTube(searchResult, updateVideos);
+
+  }
+
+  handleClick(event) {
+    let searchResult = {
+      key: 'AIzaSyDXVbT0Qo5HWxlaxGywRPugi5OO9n34o38',
+      query: this.state.text,
+      max: 5
+    };
+
+    // Set this.state.videos to fetchedVideos
+    let updateVideos = function(fetchedVideos) {
+      console.log(this);
+      this.setState({ videos: fetchedVideos })
+    }
+
+    updateVideos = updateVideos.bind(this);
+
+    searchYouTube(searchResult, updateVideos);
   }
 
   render() {
     return (
       <div>
-        <Nav />
+        <Nav text={this.state.text} updateText={this.handleChange} clicker={this.handleClick}/>
         <div className="col-md-7">
-          <VideoPlayer video={window.exampleVideoData[this.state.done]}/>
+          <VideoPlayer video={this.state.videos[this.state.idx]}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={window.exampleVideoData} clicker={this.onVideoClick}/>
+          <VideoList videos={this.state.videos} clicker={this.onVideoClick}/>
         </div>
       </div>  
     );
