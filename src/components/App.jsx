@@ -13,7 +13,7 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-
+  
     this.state = {
       idx: 0,
       text: '',
@@ -70,6 +70,14 @@ class App extends React.Component {
         </div>
       </div>  
     );
+  }
+
+  componentDidMount() {
+    let that = this;
+    this.props.searchYouTube({key: 'AIzaSyDXVbT0Qo5HWxlaxGywRPugi5OO9n34o38', query: 'tarheel', max: 5}, function(fetchedVideos) {
+      console.log(this);
+      that.setState({ videos: fetchedVideos })
+    })
   }
 }
 

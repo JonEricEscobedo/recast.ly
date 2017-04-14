@@ -21,6 +21,7 @@ var searchYouTube = (options, callback) => {
       maxResults: max,
       videoDefinition: 'high',
       videoEmbeddable: 'true',
+      relevanceLanguage: 'en',
       key: key
     },
   	success: function(data) {
