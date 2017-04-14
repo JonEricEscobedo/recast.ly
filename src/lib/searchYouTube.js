@@ -1,21 +1,14 @@
 var searchYouTube = (options, callback) => {
-  // TODO
-  // var searchTerm;
-
-  // $('#search-button').on('click', function(){
-  //   searchTerm = $('#search-term').val();
-  // });
   var key = options.key;
   var query = options.query;
   var max = options.max;
-  console.log(options);
+
   $.ajax({
   	type: 'GET',
   	url: 'https://www.googleapis.com/youtube/v3/search',
   	dataType: 'json',
   	data: {
       part: 'snippet',
-      order: 'rating',
       q: query,
       type: 'video',
       maxResults: max,
@@ -33,4 +26,3 @@ var searchYouTube = (options, callback) => {
 
 window.searchYouTube = searchYouTube;
 
-// AIzaSyDXVbT0Qo5HWxlaxGywRPugi5OO9n34o38

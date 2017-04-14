@@ -1,15 +1,3 @@
-// var App = () => (
-//   <div>
-//     <Nav />
-//     <div className="col-md-7">
-//       <VideoPlayer video={window.exampleVideoData[0]}/>
-//     </div>
-//     <div className="col-md-5">
-//       <VideoList videos={window.exampleVideoData}/>
-//     </div>
-//   </div>asdfasdf
-// );
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -26,20 +14,17 @@ class App extends React.Component {
   }
 
   onVideoClick(index) {
-    // alert(index)
     this.setState(function(){
       return {
         idx: index
       };
     });
-  }
+  } // End of onVideoClick
 
   handleChange(event) {
-    // console.log(event.currentTarget.value);
-    this.setState({ text: event.currentTarget.value })
-    // searchYouTube(searchResult, updateVideos);
-
-  }
+    this.setState({ text: event.currentTarget.value });
+    this.getYouTubeVideos(event.currentTarget.value);
+  } // End of handleChange
 
   handleClick(event) {
     let searchResult = {
@@ -50,14 +35,26 @@ class App extends React.Component {
 
     // Set this.state.videos to fetchedVideos
     let updateVideos = function(fetchedVideos) {
-      // console.log(this);
       this.setState({ videos: fetchedVideos })
     }
 
     updateVideos = updateVideos.bind(this);
 
     searchYouTube(searchResult, updateVideos);
-  }
+  } // End of handleClick
+
+  getYouTubeVideos(query) {
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      query: query
+    };
+
+    this.props.searchYouTube(options, (videos) => {
+      this.setState({
+        videos: videos
+      })
+    })
+  } // End of getYouTubeVideos
 
   render() {
     return (
@@ -74,11 +71,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let that = this;
-    this.props.searchYouTube({key: window.YOUTUBE_API_KEY, query: 'tarheel', max: 5}, function(fetchedVideos) {
-      // console.log(this);
-      that.setState({ videos: fetchedVideos })
-    })
+    this.getYouTubeVideos('duke basketball');
   }
 }
 
