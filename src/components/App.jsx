@@ -35,21 +35,22 @@ class App extends React.Component {
   }
 
   handleChange(event) {
+    // console.log(event.currentTarget.value);
     this.setState({ text: event.currentTarget.value })
-    searchYouTube(searchResult, updateVideos);
+    // searchYouTube(searchResult, updateVideos);
 
   }
 
   handleClick(event) {
     let searchResult = {
-      key: 'AIzaSyDXVbT0Qo5HWxlaxGywRPugi5OO9n34o38',
+      key: window.YOUTUBE_API_KEY,
       query: this.state.text,
       max: 5
     };
 
     // Set this.state.videos to fetchedVideos
     let updateVideos = function(fetchedVideos) {
-      console.log(this);
+      // console.log(this);
       this.setState({ videos: fetchedVideos })
     }
 
@@ -74,8 +75,8 @@ class App extends React.Component {
 
   componentDidMount() {
     let that = this;
-    this.props.searchYouTube({key: 'AIzaSyDXVbT0Qo5HWxlaxGywRPugi5OO9n34o38', query: 'tarheel', max: 5}, function(fetchedVideos) {
-      console.log(this);
+    this.props.searchYouTube({key: window.YOUTUBE_API_KEY, query: 'tarheel', max: 5}, function(fetchedVideos) {
+      // console.log(this);
       that.setState({ videos: fetchedVideos })
     })
   }
